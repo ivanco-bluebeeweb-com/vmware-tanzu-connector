@@ -1,3 +1,22 @@
-# VMware Tanzu Connector - PREPARATION.md
+# VMware Tanzu Connector — Preparation
 
-Standard documentation for VMware Tanzu Connector in Imperal Cloud.
+**Category:** C43. Container Orchestration & Kubernetes Management  
+**Preparation status:** Drafted for vendor-specific integration  
+**Scope decision:** Полная замена синтетического каркаса C30 на сущности и сценарии VMware Tanzu.
+
+## 1. Паспорт приложения
+Коннектор VMware Tanzu предназначен для интеграции управление парком кластеров Tanzu Kubernetes Grid, применение политик безопасности и инспекция состояния кластеров в платформу Imperal Cloud.
+
+## 2. Проблема и контекст
+Когда **Enterprise Cloud Architect** сталкивается с задачей управления в сервисе VMware Tanzu, ручное переключение между интерфейсами приводит к задержкам и ошибкам координации. Коннектор предоставляет автоматизированный программный интерфейс к сущностям сервиса.
+
+## 3. Роли и права
+- **Enterprise Cloud Architect, SRE, Platform Engineer**: основные пользователи операций коннектора.
+- **Владелец подключения (Workspace Admin)**: управляет учетными данными и жизненным циклом интеграции.
+
+## 4. Первичный сценарий
+`получение реестра кластеров -> инспекция комплаенса политик -> аудит состояния нод`.
+
+## 5. Границы и ограничения
+- Коннектор выполняет только документированные API-операции вендора.
+- Любые массовые или деструктивные действия требуют явного подтверждения оператором.

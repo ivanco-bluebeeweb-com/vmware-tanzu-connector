@@ -1,3 +1,8 @@
-# VMware Tanzu Connector - UI_COMPONENT_PLAN.md
+# VMware Tanzu Connector — UI Component Plan
 
-Standard documentation for VMware Tanzu Connector in Imperal Cloud.
+**Compliance:** UI_INTERFACE_STANDARD.md
+
+## Интерфейс
+- **Левый сайдбар:** Форма подключения на всю ширину контейнера, все инпуты с лейблами и контекстными плейсхолдерами.
+- **Центральная зона:** Карточки статуса подключения, таблица сущностей (кластеры (/v1alpha1/clusters)), журнал операций.
+- **Модальные окна:** Предупреждения и подтверждения для любых деструктивных или модифицирующих действий.
