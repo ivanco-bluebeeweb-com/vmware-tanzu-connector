@@ -10,7 +10,7 @@ from schemas import (
 from handlers_connection import resolve_client
 
 @chat.function("list_containers", "List containers in VMware Tanzu.", action_type="read", chain_callable=True, event="vmware-tanzu-connector.list_containers", effects=["read:containers"], data_model=ContainerList)
-async def list_containers(params: ListContainerParams, ctx) -> ActionResult:
+async def list_containers(ctx, params: ListContainerParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         raw_items = await client.list_containers(limit=params.limit)
@@ -24,7 +24,7 @@ async def list_containers(params: ListContainerParams, ctx) -> ActionResult:
         return ActionResult.error(f"Error listing containers: {e}")
 
 @chat.function("get_container", "Get details of one Container in VMware Tanzu.", action_type="read", chain_callable=True, event="vmware-tanzu-connector.get_container", effects=["read:container"], data_model=ContainerRecord)
-async def get_container(params: GetContainerParams, ctx) -> ActionResult:
+async def get_container(ctx, params: GetContainerParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         r = await client.get_container(params.container_id)
@@ -35,7 +35,7 @@ async def get_container(params: GetContainerParams, ctx) -> ActionResult:
         return ActionResult.error(f"Error retrieving Container: {e}")
 
 @chat.function("audit_container_health", "Audit health of VMware Tanzu containers and connectivity.", action_type="read", chain_callable=True, event="vmware-tanzu-connector.audit_container_health", effects=["read:audit"], data_model=AuditHealthReport)
-async def audit_container_health(params: ConnectionIdParams, ctx) -> ActionResult:
+async def audit_container_health(ctx, params: ConnectionIdParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         items = await client.list_containers(limit=50)
