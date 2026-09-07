@@ -19,7 +19,7 @@ async def list_containers(params: ListContainerParams, ctx) -> ActionResult:
             rid = str(r.get("id") or r.get("key") or r.get("uuid") or "unknown")
             rname = r.get("name") or r.get("title") or r.get("label") or rid
             items.append({"id": rid, "name": rname, "status": r.get("status"), "created_at": r.get("createdAt") or r.get("created_at"), "raw": r})
-        return ActionResult.ok({"containers": items, "total": len(items)}, summary=f"Found {len(items)} containers.")
+        return ActionResult.success({"containers": items, "total": len(items)}, summary=f"Found {len(items)} containers.")
     except Exception as e:
         return ActionResult.error(f"Error listing containers: {e}")
 
@@ -30,7 +30,7 @@ async def get_container(params: GetContainerParams, ctx) -> ActionResult:
         r = await client.get_container(params.container_id)
         rid = str(r.get("id") or params.container_id)
         rname = r.get("name") or r.get("title") or rid
-        return ActionResult.ok({"id": rid, "name": rname, "status": r.get("status"), "created_at": r.get("createdAt") or r.get("created_at"), "raw": r}, summary=f"Retrieved Container {rid}.")
+        return ActionResult.success({"id": rid, "name": rname, "status": r.get("status"), "created_at": r.get("createdAt") or r.get("created_at"), "raw": r}, summary=f"Retrieved Container {rid}.")
     except Exception as e:
         return ActionResult.error(f"Error retrieving Container: {e}")
 
@@ -39,7 +39,7 @@ async def audit_container_health(params: ConnectionIdParams, ctx) -> ActionResul
     client = await resolve_client(ctx, params.connection_id)
     try:
         items = await client.list_containers(limit=50)
-        return ActionResult.ok({
+        return ActionResult.success({
             "healthy": True,
             "total_containers": len(items),
             "details": {"sample_count": len(items)},
